@@ -21,8 +21,8 @@ contract MappingTask {
         amounts[msg.sender] = _amount;
     }
 
-    function checkBalance(address _address) public view returns (uint256) {
-        return amounts[_address];
+    function checkBalance() public view returns (uint256) {
+        return amounts[msg.sender];
     }
 
 }
