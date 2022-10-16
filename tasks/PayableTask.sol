@@ -24,4 +24,11 @@ contract PayableTask {
     function checkBalance() public view returns (uint256) {
         return amounts[msg.sender];
     }
+
+    function withdraw(uint256 _amount) public {
+        require(amounts[msg.sender] > _amount, "no buget");
+        (bool succes, ) = (msg.sender).call{value: _amount}("");
+        require(succes, "error on transfer");
+        amounts[msg.sender] = amounts[msg.sender] - _amount;
+    }
 }
