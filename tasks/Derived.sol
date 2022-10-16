@@ -6,6 +6,10 @@ contract Base1 {
     constructor() {
         emit ConstructorEvent1("Base 1, ctr");
     }
+
+    function foo() public virtual returns (bytes32) {
+        return "Base2Foo";
+    }
 }
 
 
@@ -14,6 +18,10 @@ contract Base2 {
     constructor() {
         emit ConstructorEvent2("Base 2, ctr");
     }
+
+    function foo() public virtual returns (bytes32) {
+        return "Base2Foo";
+    }
 }
 
 contract Derived is Base2, Base1 {
@@ -21,6 +29,10 @@ contract Derived is Base2, Base1 {
     // call order Base2>Base1>Derived
     constructor( ) Base2() Base1() {
         emit ConstructorEventD("Derived, ctr");
+    }
+
+    function foo() public override (Base1, Base2) returns (bytes32) {
+       return super.foo();
     }
 }
 
